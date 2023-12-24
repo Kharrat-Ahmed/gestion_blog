@@ -1,10 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
-from .forms import CommentForm, PostForm, LoginForm
+from .forms import CommentForm, PostForm, LoginForm, EditProfileForm
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+
 
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
@@ -79,22 +81,39 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                messages.success(request, 'Login successful.')
-                return redirect('home')  # Redirect to the home page or any other desired page
+                # Redirect to post_list upon successful login
+                return redirect('post_list')
             else:
-                messages.error(request, 'Invalid login credentials.')
+                # Handle invalid login credentials
+                form.add_error(None, 'Invalid login credentials. Please try again.')
     else:
         form = LoginForm()
 
     return render(request, 'gestion_blog/login.html', {'form': form})
+
+
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('home')  # Redirect to the home page after registration
+            return redirect('login')  # Redirect to the home page after registration
     else:
         form = UserCreationForm()
 
     return render(request, 'gestion_blog/register.html', {'form': form})
+def profile(request):
+    # Add logic to fetch and display user profile information
+    return render(request, 'gestion_blog/profile.html')
+@login_required
+def edit_profile(request):
+    if request.method == 'POST':
+        form = EditProfileForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = EditProfileForm(instance=request.user)
+
+    return render(request, 'gestion_blog/edit_profile.html', {'form': form})

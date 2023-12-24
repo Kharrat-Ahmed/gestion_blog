@@ -3,8 +3,12 @@
 from django.contrib import admin
 from django.urls import path, include
 
+
+##app_name = 'gestion_blog'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('gestion_blog.urls')),  # Include the URLs of gestion_blog app
+    path('', include('gestion_blog.urls')),
+
 ]
 

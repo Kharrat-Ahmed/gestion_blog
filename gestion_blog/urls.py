@@ -3,7 +3,8 @@
 from django.urls import path
 from . import views
 from django.contrib.auth import views as auth_views
-from .views import register
+from .views import register, profile, edit_profile
+
 
 urlpatterns = [
     path('', views.post_list, name='post_list'),
@@ -12,6 +13,8 @@ urlpatterns = [
     path('add-post/', views.add_post, name='add_post'),
     path('login/', auth_views.LoginView.as_view(template_name='gestion_blog/login.html'), name='login'),
     path('register/', views.register, name='register'),
+    path('accounts/profile/', profile, name='profile'),
+    path('edit-profile/', edit_profile, name='edit_profile'),
 
     # Add more URL patterns as needed for your app
 ]

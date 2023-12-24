@@ -1,0 +1,26 @@
+<!-- gestion_blog/templates/gestion_blog/profile.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+</head>
+<body>
+
+  <h2>User Profile</h2>
+
+  {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}!</p>
+    <p>Email: {{ user.email }}</p>
+    <!-- Add more fields to display user profile information -->
+
+    <!-- Example: Display a button to edit profile -->
+    <a href="{% url 'edit_profile' %}">Edit Profile</a>
+  {% else %}
+    <p>Please <a href="{% url 'login' %}">login</a> to view your profile.</p>
+  {% endif %}
+
+</body>
+</html>
