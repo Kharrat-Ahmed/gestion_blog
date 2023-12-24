@@ -1,0 +1,17 @@
+<!-- gestion_blog/templates/gestion_blog/add_post.html -->
+
+{% extends 'gestion_blog/base.html' %}
+
+{% block title %}Add New Post{% endblock %}
+
+{% block header %}
+    Add New Post
+{% endblock %}
+
+{% block content %}
+    <form method="post" action="{% url 'add_post' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Post</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,13 @@
+<!-- gestion_blog/templates/gestion_blog/add_comment.html -->
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h1>Add Comment</h1>
+  <p>Post: {{ post.title }}</p>
+  <form method="post" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Comment</button>
+  </form>
+{% endblock %}
