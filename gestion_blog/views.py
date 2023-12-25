@@ -1,13 +1,14 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import CommentForm, PostForm, LoginForm, EditProfileForm
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 
-
+def home(request):
+    return render(request, 'gestion_blog/base.html')
 def post_detail(request, slug):
     post = get_object_or_404(Post, slug=slug)
     comments = post.comments.filter(approved=True)
@@ -117,3 +118,7 @@ def edit_profile(request):
         form = EditProfileForm(instance=request.user)
 
     return render(request, 'gestion_blog/edit_profile.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'gestion_blog/logout.html')  # Create a template for the logout confirmation

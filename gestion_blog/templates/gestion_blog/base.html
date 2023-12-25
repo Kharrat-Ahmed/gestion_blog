@@ -9,13 +9,38 @@
     <!-- Add your CSS styles or include external stylesheets here -->
 </head>
 <body>
-
+    {% block header %}
+    Welcome to My Blog
+    <br>
+  {% endblock %}
+  <nav>
+    <a href="{% url 'post_list' %}">Posts</a> <br>
+    {% if user.is_authenticated %}
+        <a href="{% url 'add_post' %}">Add Post</a> <br>
+        <a href="{% url 'profile' %}">Profile</a> <br>
+        <form action="{% url 'logout' %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+        </form> <br>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a> <br>
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+  </nav>
     <header>
         <h1>Gestion de Blog</h1>
         <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'add_post' %}">Add Post</a>
-
+      
+        {% load static %}
+        <!-- Link your custom CSS file -->
+        <link rel="stylesheet" type="text/css" href="{% static 'gestion_blog/css/styles.css' %}">
         <!-- Add navigation or other header content here -->
+
+        <nav>
+            <a href="{% url 'post_list' %}">Home</a>
+            <!-- Add more navbar links as needed -->
+        </nav>
+    
     </header>
 
     <main>

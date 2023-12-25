@@ -1,7 +1,23 @@
 <!-- gestion_blog/templates/gestion_blog/add_comment.html -->
 
-{% extends 'gestion_blog/base.html' %}
-
+{% block header %}
+  Welcome to My Blog
+  <br>
+{% endblock %}
+<nav>
+  <a href="{% url 'post_list' %}">Posts</a> <br>
+  {% if user.is_authenticated %}
+      <a href="{% url 'add_post' %}">Add Post</a> <br>
+      <a href="{% url 'profile' %}">Profile</a> <br>
+      <form action="{% url 'logout' %}" method="post">
+          {% csrf_token %}
+          <input type="submit" value="Logout">
+      </form> <br>
+  {% else %}
+      <a href="{% url 'login' %}">Login</a> <br>
+      <a href="{% url 'register' %}">Register</a>
+  {% endif %}
+</nav>
 {% block content %}
   <h1>Add Comment</h1>
   <p>Post: {{ post.title }}</p>

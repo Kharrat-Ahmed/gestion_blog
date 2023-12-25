@@ -1,0 +1,35 @@
+/* gestion_blog/static/gestion_blog/css/styles.css */
+body {
+    background-color: #f0f0f0;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #333;
+}
+/* gestion_blog/static/gestion_blog/css/styles.css */
+
+
+
+header {
+    background-color: #333; /* Set your desired color for the header */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #555; /* Set your desired color for the navbar */
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Add more styles as needed */
