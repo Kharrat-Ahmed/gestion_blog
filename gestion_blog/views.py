@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
-from .forms import CommentForm, PostForm, LoginForm, EditProfileForm
+from .forms import CommentForm, PostForm, LoginForm, EditProfileForm, ProfilePictureForm
 from .models import Post
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
@@ -105,8 +105,14 @@ def register(request):
 
     return render(request, 'gestion_blog/register.html', {'form': form})
 def profile(request):
-    # Add logic to fetch and display user profile information
-    return render(request, 'gestion_blog/profile.html')
+    if request.method == 'POST':
+        form = ProfilePictureForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = ProfilePictureForm(instance=request.user)
+    return render(request, 'gestion_blog/profile.html', {'form': form})
 @login_required
 def edit_profile(request):
     if request.method == 'POST':

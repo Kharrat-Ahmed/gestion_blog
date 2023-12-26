@@ -1,23 +1,22 @@
 <!-- gestion_blog/templates/gestion_blog/post_detail.html -->
 
+
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - Your Blog Title</title>
+
+    <!-- Link to your external CSS file -->
+    <link rel="stylesheet" href="{% static 'gestion_blog/styles.css' %}">
+    {% include 'gestion_blog/base.html' %}
+
+</head>
+
 {% block header %}
-  Welcome to My Blog
-  <br>
+<h4> Welcome to post_detail </h4>
+<br>
 {% endblock %}
-<nav>
-  <a href="{% url 'post_list' %}">Posts</a> <br>
-  {% if user.is_authenticated %}
-      <a href="{% url 'add_post' %}">Add Post</a> <br>
-      <a href="{% url 'profile' %}">Profile</a> <br>
-      <form action="{% url 'logout' %}" method="post">
-          {% csrf_token %}
-          <input type="submit" value="Logout">
-      </form> <br>
-  {% else %}
-      <a href="{% url 'login' %}">Login</a> <br>
-      <a href="{% url 'register' %}">Register</a>
-  {% endif %}
-</nav>
 
 {% block title %}{{ post.title }}{% endblock %}
 

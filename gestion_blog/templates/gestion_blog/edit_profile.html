@@ -2,40 +2,34 @@
 
 <!DOCTYPE html>
 <html lang="en">
+{% load static %}
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
+    <link rel="stylesheet" href="{% static 'gestion_blog/styles.css' %}">
+    {% include 'gestion_blog/base.html' %}
+
 </head>
 <body>
     {% block header %}
-    Welcome to My Blog
+    <h4> Welcome to My Edit_profile </h4>
     <br>
   {% endblock %}
-  <nav>
-    <a href="{% url 'post_list' %}">Posts</a> <br>
-    {% if user.is_authenticated %}
-        <a href="{% url 'add_post' %}">Add Post</a> <br>
-        <a href="{% url 'profile' %}">Profile</a> <br>
-        <form action="{% url 'logout' %}" method="post">
-            {% csrf_token %}
-            <input type="submit" value="Logout">
-        </form> <br>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a> <br>
-        <a href="{% url 'register' %}">Register</a>
-    {% endif %}
-  </nav>
+  
   <h2>Edit Profile</h2>
 
   <form method="post" action="{% url 'edit_profile' %}">
     {% csrf_token %}
     {{ form.as_p }}
-
+    {% if user.profile.profile_picture %}
+    <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture">
+  {% endif %}
     <button type="submit">Save Changes</button>
   </form>
 
-  <a href="{% url 'profile' %}">Back to Profile</a>
+  <a href="{% url 'profile' %}" class="button">Back to Profile</a>
 
 </body>
 </html>

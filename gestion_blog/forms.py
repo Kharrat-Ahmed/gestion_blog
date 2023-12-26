@@ -3,6 +3,7 @@
 from django import forms
 from .models import Post, Comment, CustomUser
 from django.contrib.auth.forms import UserChangeForm
+from .models import Profile
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -27,3 +28,20 @@ class EditProfileForm(UserChangeForm):
         # Customize labels, widgets, etc., if needed
         # For example:
         # self.fields['username'].label = 'New Username'    
+
+class ProfilePictureForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['profile_picture'].widget.attrs.update({'class': 'form-control-file'})
+
+    def clean_profile_picture(self):
+        profile_picture = self.cleaned_data.get('profile_picture')
+        if profile_picture:
+            # Add any validation logic for the profile picture if needed
+            # For example, check file size, type, etc.
+            pass
+        return profile_picture        

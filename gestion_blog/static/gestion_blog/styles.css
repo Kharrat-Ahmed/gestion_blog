@@ -1,0 +1,61 @@
+/* gestion_blog/static/gestion_blog/css/styles.css */
+body {
+    background-color: #46313171;
+    font-family: 'Arial', sans-serif;
+}
+
+h1 {
+    color: #ac0505;
+}
+/* gestion_blog/static/gestion_blog/css/styles.css */
+h4 {
+    color: #ac05a4;
+}
+
+
+header {
+    background-color: #333; /* Set your desired color for the header */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+nav {
+    background-color: #9080d6; /* Set your desired color for the navbar */
+    overflow: hidden;
+}
+
+nav a {
+    float: left;
+    display: block;
+    color: rgb(0, 36, 238);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Add more styles as needed */
+button, input[type="submit"], a.button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    background-color: #f442a4; /* Set your desired background color */
+    color: #fff; /* Set your desired text color */
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+
+/* Style for forms */
+form {
+    max-width: 400px; /* Set your desired maximum width */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd; /* Set your desired border color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
