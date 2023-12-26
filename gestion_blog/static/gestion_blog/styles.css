@@ -23,11 +23,13 @@ header {
 nav {
     background-color: #9080d6; /* Set your desired color for the navbar */
     overflow: hidden;
+    justify-content: space-between; /* Space out the items */
 }
 
 nav a {
     float: left;
     display: block;
+    display: flex; /* Use flexbox to manage layout */
     color: rgb(0, 36, 238);
     text-align: center;
     padding: 14px 16px;
@@ -37,8 +39,8 @@ nav a {
 /* Add more styles as needed */
 button, input[type="submit"], a.button {
     display: inline-block;
-    padding: 10px 20px;
-    margin: 10px 0;
+    padding: 10px 15px;
+    margin: 10px 50;
     border: none;
     border-radius: 5px;
     background-color: #f442a4; /* Set your desired background color */
@@ -48,6 +50,13 @@ button, input[type="submit"], a.button {
     font-size: 16px;
     cursor: pointer;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add shadow */
+    display: flex; /* Use flexbox to manage layout */
+    justify-content: space-between; /* Space out the items */
+}
+
+nav form {
+    display: inline-block; /* Keep the form inline */
+    margin-left: 1100px; /* Adjust margin to separate Logout from other links */
 }
 
 /* Style for forms */
@@ -58,4 +67,11 @@ form {
     border: 1px solid #ddd; /* Set your desired border color */
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+}
+.post-container {
+    background-color: #3534346c; /* Set the background color for the post */
+    padding: 20px; /* Add padding to create space inside the container */
+    border-radius: 8px; /* Apply border-radius for rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow effect */
+    margin-bottom: 20px; /* Add margin between posts */
 }
