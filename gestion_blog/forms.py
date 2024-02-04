@@ -3,12 +3,20 @@
 from django import forms
 from .models import Post, Comment, CustomUser
 from django.contrib.auth.forms import UserChangeForm
-from .models import Profile
+from .models import Profile, Message
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'content', 'slug']
+
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['content']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
 
 class CommentForm(forms.ModelForm):
     class Meta:
@@ -44,4 +52,5 @@ class ProfilePictureForm(forms.ModelForm):
             # Add any validation logic for the profile picture if needed
             # For example, check file size, type, etc.
             pass
-        return profile_picture        
+        return profile_picture  
+

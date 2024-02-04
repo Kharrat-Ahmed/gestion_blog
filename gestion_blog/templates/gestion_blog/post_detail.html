@@ -1,6 +1,5 @@
 <!-- gestion_blog/templates/gestion_blog/post_detail.html -->
 
-
 {% load static %}
 <head>
     <meta charset="UTF-8">
@@ -11,11 +10,35 @@
     <link rel="stylesheet" href="{% static 'gestion_blog/styles.css' %}">
     {% include 'gestion_blog/base.html' %}
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeButton = document.getElementById('like-button');
+            const likeCount = document.getElementById('like-count');
+
+            likeButton.addEventListener('click', async function () {
+                const response = await fetch('{% url "like_post" post.slug %}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                });
+
+                const data = await response.json();
+                likeCount.textContent = data.likes;
+
+                if (data.user_likes) {
+                    likeButton.textContent = 'Like';
+                } else {
+                    likeButton.textContent = 'Like';
+                }
+            });
+        });
+    </script>
 </head>
 
 {% block header %}
-<h4> Welcome to post_detail </h4>
-<br>
+    <h4> Welcome to post_detail </h4>
+    <br>
 {% endblock %}
 
 {% block title %}{{ post.title }}{% endblock %}
@@ -23,8 +46,12 @@
 {% block content %}
   <h1>{{ post.title }}</h1>
   <p>{{ post.content }}</p>
-  <p>Author: {{ post.author.username }}</p>
+  <p>Author: {{ post.author.username }}</p>             <a href="{% url 'send_message' recipient_username=user.username %}">Send Message</a>
+
   <p>Published on: {{ post.pub_date }}</p>
+
+  <h3>Likes: <span id="like-count">{{ post.likes }}</span></h3>
+  <button id="like-button">Like</button>
 
   <h2>Comments</h2>
   {% for comment in comments %}

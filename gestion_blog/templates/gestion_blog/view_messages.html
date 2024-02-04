@@ -1,0 +1,21 @@
+<!-- gestion_blog/templates/gestion_blog/view_messages.html -->
+
+{% include 'gestion_blog/base.html' %}
+
+{% block content %}
+  <h2>Received Messages</h2>
+  {% for message in received_messages %}
+    <div>
+      <p>{{ message.sender.username }} sent:</p>
+      <p>{{ message.content }}</p>
+    </div>
+  {% endfor %}
+
+  <h2>Sent Messages</h2>
+  {% for message in sent_messages %}
+    <div>
+      <p>Sent to {{ message.recipient.username }}:</p>
+      <p>{{ message.content }}</p>
+    </div>
+  {% endfor %}
+{% endblock %}

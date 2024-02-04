@@ -1,0 +1,24 @@
+<!-- gestion_blog/templates/gestion_blog/send_message.html -->
+
+{% include 'gestion_blog/base.html' %}
+
+
+{% block title %}<h2>Send Message to {{ recipient.username }}</h2>{% endblock %}
+
+{% block content %}
+    <form method="post" action="">
+        {% csrf_token %}
+        <label for="id_content">Message:</label>
+        {{ form.content }}
+        <button type="submit">Send</button>
+    </form>
+    <p>Choose another recipient:</p>
+    <form method="get" action="{% url 'send_message' recipient_username='admin' %}">
+      <select name="username" id="id_username">
+            {% for user in users %}
+                <option value="{{ user.username }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Select</button>
+    </form>
+{% endblock %}

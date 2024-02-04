@@ -1,7 +1,6 @@
-<!-- gestion_blog/templates/gestion_blog/post_list.html -->
-
-
 {% load static %}
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,12 +11,13 @@
     {% include 'gestion_blog/base.html' %}
 
 </head>
-{% block header %}
- <h4> Welcome to My post Lists </h4>
-  <br>
-{% endblock %}
+<body>
+    {% block header %}
+    <h4> Welcome to My post Lists </h4>
+    <br>
+    {% endblock %}
 
-{% block content %}
+    {% block content %}
 
     {% for post in posts %}
         <div class="post-container">
@@ -27,8 +27,38 @@
             <a href="{% url 'post_detail' slug=post.slug %}">View Post</a>
             <!-- Link to add comments for the current post -->
             <a href="{% url 'add_comment' slug=post.slug %}" target="_blank">Add Comment</a>
+            <!-- Like button -->
+            <button class="like-button" data-post-slug="{{ post.slug }}">Like</button>
+            <a href="{% url 'send_message' recipient_username=user.username %}">Send Message</a>
+            <a href="{% url 'view_messages' %}">View Messages</a>
         </div>
         <hr>
     {% endfor %}
 
-{% endblock %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const likeButtons = document.querySelectorAll('.like-button');
+    
+            likeButtons.forEach(likeButton => {
+                likeButton.addEventListener('click', async function () {
+                    const postSlug = this.dataset.postSlug;
+                    const response = await fetch(`/like/${postSlug}/`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': '{{ csrf_token }}',
+                        },
+                        body: JSON.stringify({}),
+                    });
+    
+                    const data = await response.json();
+                    // Handle the response as needed, e.g., update UI
+                    console.log(data);
+                });
+            });
+        });
+    </script>
+
+    {% endblock %}
+</body>
+</html>

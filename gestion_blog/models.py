@@ -10,6 +10,8 @@ class Post(models.Model):
     pub_date = models.DateTimeField(auto_now_add=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True)
+    likes = models.PositiveIntegerField(default=0)
+
 
     def __str__(self):
         return self.title
@@ -29,6 +31,21 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"Comment by {self.author} on {self.post}"
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Like by {self.user} on {self.post}"
+class Message(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_messages')
+    recipient = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_messages')
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"From {self.sender.username} to {self.recipient.username} - {self.timestamp}"    
 class CustomUser(AbstractUser):
     # Add custom fields here, for example:
     birth_date = models.DateField(null=True, blank=True)
